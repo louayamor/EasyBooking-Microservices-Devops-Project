@@ -3,10 +3,10 @@ version: '3.8'
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
     ports:
       - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
 
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -23,19 +23,23 @@ services:
   user-service:
     build:
       context: ../user-service
+    image: easybooking/user-service
     ports:
       - "8081:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     depends_on:
       - kafka
 
   oauth-service:
     build:
       context: ../oauth-service
+    image: easybooking/oauth-service
     ports:
       - "8082:8080"
     environment:
+      - SPRING_PROFILES_ACTIVE=docker
       - USER_SERVICE_URL=http://user-service:8080
     depends_on:
       - user-service
@@ -43,9 +47,11 @@ services:
   reservation-service:
     build:
       context: ../reservation-service
+    image: easybooking/reservation-service
     ports:
       - "8083:8080"
     environment:
+      - SPRING_PROFILES_ACTIVE=docker
       - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     depends_on:
       - kafka
@@ -53,10 +59,43 @@ services:
   room-service:
     build:
       context: ../room-service
+    image: easybooking/room-service
     ports:
       - "8084:8080"
     environment:
+      - SPRING_PROFILES_ACTIVE=docker
       - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     depends_on:
       - kafka
+version: '3'
+
+services:
+  sonarqube:
+    image: sonarqube:community
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      - SONARQUBE_JDBC_USERNAME=sonar
+      - SONARQUBE_JDBC_PASSWORD=sonar
+      - SONARQUBE_JDBC_URL=jdbc:mysql://db:3306/sonar?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8
+    container_name: sonardb
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=sonar
+      - MYSQL_USER=sonar
+      - MYSQL_PASSWORD=sonar
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - sonardb_data:/var/lib/mysql
+
+volumes:
+  sonardb_data:
 
