@@ -1,0 +1,52 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - ci-cd
+  pull_request:
+    branches:
+      - ci-cd
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      # Cache Docker layers to speed up builds
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      # Build Docker images for each service
+      - name: Build Docker images
+        run: |
+          docker build -t easybooking/user-service ./user-service
+          docker build -t easybooking/oauth-service ./oauth-service
+          docker build -t easybooking/reservation-service ./reservation-service
+          docker build -t easybooking/room-service ./room-service
+
+      # Run tests (optional step, depending on your services' needs)
+      - name: Run tests
+        run: |
+          docker run easybooking/user-service test  # Replace with the test command for each service
+
+      # Push Docker images to Docker Hub
+      - name: Push Docker images
+        run: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push easybooking/user-service
+          docker push easybooking/oauth-service
+          docker push easybooking/reservation-service
+          docker push easybooking/room-service
