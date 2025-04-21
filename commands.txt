@@ -1,0 +1,8 @@
+start mysql
+sudo systemctl start mysql
+
+start docker
+sudo systemctl start docker
+
+Start kafka
+bin/kafka-server-start.sh config/server.properties
