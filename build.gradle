@@ -36,6 +36,13 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+sonarqube {
+    properties {
+        property "sonar.projectKey", "user-service-java"
+    }
+}
+
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
