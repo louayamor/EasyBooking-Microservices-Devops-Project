@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # OAuth Security Service
 
 Handles authentication and authorization using Spring Security and JWT.
@@ -13,3 +14,8 @@ Manages room bookings and reservation history.
 
 Handles room-related operations such as listing and availability.
 >>>>>>> origin/room-service
+=======
+# User Service
+
+Manages user accounts, roles, and profile information.
+>>>>>>> origin/user-service

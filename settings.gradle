@@ -1,9 +1,0 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-rootProject.name = 'oauth-service'
-=======
-rootProject.name = 'reservation-service'
->>>>>>> origin/reservation-service
-=======
-rootProject.name = 'room-service'
->>>>>>> origin/room-service
