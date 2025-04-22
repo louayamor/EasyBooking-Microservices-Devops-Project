@@ -35,3 +35,22 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Ignore build artifacts
+**/build/
+**/out/
+**/target/
+
+# IDE settings
+.idea/
+*.iml
+.vscode/
+
+# OS files
+.DS_Store
+
+# Logs
+**/*.log
+
+# Environment files
+.env
