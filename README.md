@@ -1,6 +1,6 @@
 # EasyBooking - Microservices Room Reservation System 🏨
 
-![Microservices Architecture](https://img.shields.io/badge/Architecture-Microservices-blue) ![Spring Boot](https://img.shields.io/badge/Backend-Spring%20Boot-green) ![React](https://img.shields.io/badge/Frontend-React-blue) ![Kubernetes](https://img.shields.io/badge/Deployment-Kubernetes-326CE5)
+![Microservices Architecture](https://img.shields.io/badge/Architecture-Microservices-blue) ![Spring Boot](https://img.shields.io/badge/Backend-Spring%20Boot-green) ![Kubernetes](https://img.shields.io/badge/Deployment-Kubernetes-326CE5)
 
 EasyBooking is a modern, scalable room reservation system built with microservices architecture. It provides secure authentication and seamless room booking management.
 
