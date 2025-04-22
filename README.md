@@ -34,7 +34,7 @@ EasyBooking is a modern, scalable room reservation system built with microservic
 ### Installation
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/EasyBooking.git
+    git clone https://github.com/louayamor/EasyBooking-Microservices-Devops-Project
     cd EasyBooking
     
 Build and start services:
